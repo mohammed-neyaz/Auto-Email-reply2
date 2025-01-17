@@ -1,34 +1,52 @@
-from transformers import pipeline
 import json
+import os
+from groq import Groq
 
 def generate_responses():
-    # Read the summarization file
+    # Initialize Groq client
+    client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+    
+    # Read emails from emails.json
     try:
-        with open("summarization.json", "r") as summary_file:
-            summaries = json.load(summary_file)
-        
-        # Initialize the text generation pipeline
-        pipe = pipeline("text-generation", model="Qwen/Qwen2.5-0.5B-Instruct")
-        
-        responses = {}
-        
-        # Generate response for each summary
-        for email_from, summary in summaries.items():
-            messages = [
-    {
-        "role": "user",
-        "content": (
-            f"Compose a professional email from Mohammed Neyaz, a Software Developer. "
-            f"Address the following summary in a professional, solution-oriented tone:\n\n{summary}"
-        )
-    }
-]
-            response = pipe(messages, max_new_tokens=200)
-            responses[email_from] = response[0]['generated_text']
-        
-        # Save responses to reply.json
-        with open("reply.json", "w") as reply_file:
-            json.dump(responses, reply_file, indent=4)
+        with open("emails.json", "r") as file:
+            emails = json.load(file)
+    except FileNotFoundError:
+        print("Error: emails.json not found")
+        return
+    
+    # Store all responses
+    responses = []
+    
+    # Generate response for each email
+    for email in emails:
+        try:
+            chat_completion = client.chat.completions.create(
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a helpful assistant who can generate short emails based on the context of the email body. Keep the tone professional and friendly"
+                    },
+                    {
+                        "role": "user",
+                        "content": email['body']
+                    }
+                ],
+                model="llama-3.3-70b-versatile",
+            )
             
+            response = {
+                "original_email": email,
+                "reply": chat_completion.choices[0].message.content
+            }
+            responses.append(response)
+            
+        except Exception as e:
+            print(f"Error generating response for email: {e}")
+            continue
+    
+    # Save responses to replies.json
+    try:
+        with open("replies.json", "w") as file:
+            json.dump(responses, file, indent=4)
     except Exception as e:
-        print(f"Error generating responses: {str(e)}")
+        print(f"Error saving responses to file: {e}")
