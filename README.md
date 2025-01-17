@@ -1,114 +1,98 @@
-# Auto Email Reply Project
+AI-Powered Email Organizer
 
-Welcome to the **Auto Email Reply** project! This repository contains a Python-based application that automates email fetching, summarization, and response generation using state-of-the-art NLP models from Hugging Face.
+Overview
 
----
+The AI-Powered Email Organizer is a Python-based console application designed to efficiently fetch, summarize, and generate responses for emails. By utilizing advanced Natural Language Processing (NLP) tools and libraries like Hugging Face Transformers, this tool provides a streamlined way to manage emails from specific accounts, save time, and ensure effective communication.
 
-## Features
+Features
 
-1. **Email Fetching**:
-   - Securely connects to your email inbox to fetch emails.
-   - Extracts email metadata such as sender, subject, and body content.
+Fetch Emails: Retrieves emails from specified accounts using IMAP.
 
-2. **Summarization**:
-   - Summarizes lengthy email content for quick understanding.
-   - Uses a summarization pipeline powered by `facebook/bart-large-cnn`.
+Email Summarization: Uses NLP to generate concise summaries for emails.
 
-3. **Response Generation**:
-   - Generates contextually relevant email replies.
-   - Leverages `gpt2` or fine-tuned models for personalized responses.
+Automated Reply Suggestions: Leverages AI to generate context-aware replies.
 
-4. **JSON Integration**:
-   - Stores fetched emails, summaries, and generated replies in structured JSON files for further use.
+JSON Data Storage: Stores summarized data, suggested replies, and conversation details in JSON files for easy access.
 
----
+File Structure
 
-## Repository Structure
+fetch_emails.py: Handles fetching emails from specified accounts.
 
-- `fetch_emails.py`: Handles email fetching using the IMAP protocol.
-- `summarize_emails.py`: Summarizes email bodies for concise representation.
-- `generate_response.py`: Generates responses to emails based on their content.
-- `main.py`: Orchestrates the entire workflow of fetching, summarizing, and responding.
-- `.env`: Contains sensitive credentials and API keys (ensure it is kept secure).
-- `emails.json`: Stores fetched emails in JSON format.
-- `summarization.json`: Stores summarized emails.
-- `reply.json`: Stores generated replies.
+summarize_emails.py: Processes and summarizes emails using AI.
 
----
+generate_response.py: Generates context-aware reply suggestions.
 
-## Installation
+main.py: Entry point of the application, integrating all modules.
 
-1. Clone the repository:
+emails.json: Stores fetched emails.
 
-   ```bash
-   git clone https://github.com/mohammed-neyaz/Auto-Email-reply2.git
-   cd Auto-Email-reply2
-   ```
-2. Add your Email id and Google app password in the main.py file
+summarization.json: Stores summarized email content.
 
-```
-   EMAIL_USER="your_email@example.com"
-   EMAIL_PASSWORD="your_email_password"
-```
-3. Add your API keys to the `.env` file:
+replies.json: Stores AI-suggested replies for emails.
 
-   ```
-   GROQ_API_KEY="your_api_key"
-   ```
+Prerequisites
 
-4. Run the main script:
+Python 3.8+
 
-   ```bash
-   python main.py
-   ```
+Libraries:
 
----
+IMAPLIB
 
-## Usage
+Transformers (Hugging Face)
 
-1. **Fetch Emails**:
-   The script fetches all emails from the inbox and stores them in `emails.json`.
+json
 
-2. **Summarize Emails**:
-   Emails are summarized using NLP techniques and saved to `summarization.json`.
+Email Account:
 
-3. **Generate Replies**:
-   Based on the email content, replies are generated and stored in `reply.json`.
+SMTP and IMAP configurations.
 
----
+Google App Passwords for Gmail integration.
 
-## Dependencies
+Setup
 
-- Python 3.8+
-- `transformers`
-- `imaplib`
-- `email`
-- `dotenv`
+Clone the Repository:
 
----
+git clone https://github.com/your-username/email-organizer.git
+cd email-organizer
 
-## Contributing
+Clone Reference Repository:
 
-We welcome contributions! If you'd like to improve this project, feel free to fork the repository and submit a pull request.
+git clone https://github.com/mohammed-neyaz/Auto-Email-reply2.git
 
----
 
-## License
+Configure Email:
 
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+Update fetch_emails.py with your email credentials and configurations.
 
----
+Run the Application:
 
-## Author
+python main.py
 
-Mohammed Neyaz 
+Usage
 
----
+Fetching Emails:
 
-## Acknowledgments
+Enter your email account details to connect and fetch emails.
 
-- Hugging Face for their amazing NLP models.
-- Open-source contributors for making development easier.
+Summarizing Emails:
 
-Happy Automating!
+Summaries of fetched emails will be stored in summarization.json.
 
+Generating Replies:
+
+Suggested replies will be stored in replies.json for review and use.
+
+Customization
+
+Modify the summarize_emails.py file to adjust summarization logic or model.
+
+Update the generate_response.py to tweak reply generation behavior.
+
+
+Acknowledgments
+
+Hugging Face Transformers for enabling robust NLP capabilities.
+
+Python community for their rich set of libraries and tools.
+
+GROQ API for providing the API key to integrate LLM in my project
