@@ -4,8 +4,8 @@ from summarize_emails import summarize_emails
 from generate_response import generate_responses
 
 def main():
-    email_user = 'nick.neyaz.15@gmail.com'
-    email_password = 'rimd bzfy fngg aeto'
+    email_user = 'your@gmail.com'   #enter you gmail ID here
+    email_password = 'xxxx xxxx xxxx xxxx'   #Enter your google app password here
 
     print("Logging in...")
     emails = fetch_emails(email_user, email_password)
